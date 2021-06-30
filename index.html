@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+
+<html>
+	<head>
+		<title>Code Quiz</title>
+		<meta charset="UTF-8">
+		<link href="style.css" rel="stylesheet">
+        
+	</head>
+	<body>
+		<div>
+			<!-- view scores link on the top left of nav bar-->
+			<div class="left">
+                <a onclick="getScore()" href="#"><h4 >View Highscore</h4></a>
+			</div>
+			<!-- countdown timer on the top right of nav bar-->
+			<div class="right">
+				<h4>Time: <span id="timeLeft">75</span></h4>
+			</div>
+		</div>
+		<!--main body of quiz-->
+		<div id="quiz">
+            <div id="quizBody">      
+                <h1>   
+                    Code Quiz Challenge
+                </h1>
+                <button id="start-button">Start!</button>
+                
+            </div>
+        </div>
+
+        <script src = "script.js"></script>
+	</body>
+</html>
