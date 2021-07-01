@@ -68,22 +68,14 @@ function next() {
 
   } else {
     document.getElementById("quiz-container").innerHTML = checkAnswer();
-
-
   }
 }
 //stop the timer to end the game 
 function gameOver() {
   clearInterval(timer);
-
-  var quizBody =
-    `
-<h1>Game over!</h1>
-<h2>Score: ` + score + ` /100!</h2>
-
-`;
-
+  var quizBody = "<h2>Game Over</h2>" + "<h2>Score: </h2>" + score + "<p> /100 </p>";
   document.getElementById("quiz-container").innerHTML = quizBody;
+  
 }
 
 
