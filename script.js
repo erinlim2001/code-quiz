@@ -95,14 +95,6 @@ function checkAnswer() {
   var quizBody = "<h2>" + questions[currentQuestion].question + "</h2>"
   //moving through choices to see if it is correct
   for (var i = 0; i < questions[currentQuestion].choices.length; i++) {
-    var buttonCode = "<button onclick=\"[answer]\">[choices]</button>";
-    buttonCode = buttonCode.replace("[choices]", questions[currentQuestion].choices[i]);
-    if (questions[currentQuestion].choices[i] == questions[currentQuestion].answer) {
-      buttonCode = buttonCode.replace("[answer]", "correct()");
-    } else {
-      buttonCode = buttonCode.replace("[answer]", "wrong()");
-    }
-    quizBody = quizBody + buttonCode;
   }
 
 
