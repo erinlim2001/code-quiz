@@ -1,10 +1,5 @@
 # code-quiz
 
-<<<<<<< HEAD
-# code-quiz
-
-=======
->>>>>>> 9fe56e8fb58460203c51be3159cd3928f2b4221d
 ## Description
 
 The purpose of this project was to create a multiple choice quiz. When the start button is pressed, a timer starts and questions are presented one at a time. When a question is answered correctly, the user receives 20 points, if it is incorrect, the time you have to solve the questions decreases by 15. You should be able to save you score with you initials at the end of the game. This project allows me to prepare for posible coding assessments that could be given during an interview.
