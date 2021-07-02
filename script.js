@@ -7,7 +7,6 @@ var choiceC = document.getElementById("C");
 var choiceD = document.getElementById("D");
 var scoreDiv = document.getElementById("score");
 var timerDisplay = document.getElementById("timerDisplay");
-var storeScore = document.getElementById("storeScore");
 
 //create questions
 var questions = [
@@ -64,7 +63,7 @@ function setTime() {
     timer = setInterval(function () {
       timeLeft--;
       document.getElementById("timeLeft").innerHTML = timeLeft;
-  
+
       if (timeLeft <= 0) {
         //stops execution of action at set interval
         //automatically zero when time left becomes negative
@@ -116,7 +115,5 @@ function gameOver(){
     choices.style.display = "none";
     scoreDiv.style.display = "block";
     scoreDiv.innerHTML = "<p> YOU GOT: " + score + "%<p>";
-    storeScore.style.display = "block";
-    
 }
 
