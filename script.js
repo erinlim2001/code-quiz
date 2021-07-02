@@ -1,103 +1,119 @@
-//arrray of the quiz questions, avaialble choices, and correct answers     
+var start = document.getElementById("start");
+var quiz = document.getElementById("quiz");
+var question = document.getElementById("question");
+var choiceA = document.getElementById("A");
+var choiceB = document.getElementById("B");
+var choiceC = document.getElementById("C");
+var choiceD = document.getElementById("D");
+var scoreDiv = document.getElementById("score");
+var timerDisplay = document.getElementById("timerDisplay");
+
+//create questions
+var questions = [
+    {
+        question: "Which bird is a universal symbol of peace?",
+        choiceA: "pigeon",
+        choiceB: "parrot",
+        choiceC: "eagle",
+        choiceD: "dove",
+        correct: "D"
+    },
+    {
+        question: "A snail can sleep for how many years?",
+        choiceA: "3",
+        choiceB: "5",
+        choiceC: "7",
+        choiceD: "20",
+        correct: "A"
+    },
+    {
+        question: "A group of lions is known as?",
+        choiceA: "family",
+        choiceB: "school",
+        choiceC: "pride",
+        choiceD: "group",
+        correct: "C"
+    },
+    {
+        question: "How many heart chambers a cockroach has?",
+        choiceA: "12",
+        choiceB: "1",
+        choiceC: "10",
+        choiceD: "4",
+        correct: "A"
+    },
+    {
+        question: "Which animal has the highest blood pressure?",
+        choiceA: "dog",
+        choiceB: "giraffe",
+        choiceC: "zebra",
+        choiceD: "koala",
+        correct: "giraffe"
+    }
+
+];
+
+var lastQuestion = questions.length - 1;
+let currentQuestion = 0;
+var score = 0;
 var timer;
 var timeLeft = 75;
-var score = 0;
-var currentQuestion = -1;
 
-var questions = [{
-  question: "A snail can sleep for how many years?",
-  choices: ["3", "5", "7", "20"],
-  answer: "3"
-},
-{
-  question: "A group of lions is known as?",
-  choices: ["family", "school", "pride", "group"],
-  answer: "pride"
-},
-{
-  question: "How many heart chambers a cockroach has?",
-  choices: ["12", "1", "10", "4"],
-  answer: "12"
-},
-{
-  question: "Which bird is a universal symbol of peace?",
-  choices: ["pigeon", "parrot", "eagle", "dove"],
-  answer: "dove"
-},
-{
-  question: "Which animal has the highest blood pressure?",
-  choices: ["dog", "giraffe", "zebra", "koala"],
-  answer: "giraffe"
-}
-]
-
-var startButton = document.getElementById("start-button");
-
-//when click start button, run function start
-startButton.addEventListener('click', start);
-
-//timer function
 function setTime() {
-  timer = setInterval(function () {
-    timeLeft--;
-    document.getElementById("timeLeft").innerHTML = timeLeft;
-
-    if (timeLeft <= 0) {
-      //stops execution of action at set interval
-      //automatically zero when time left becomes negative
-      timeLeft = 0;
+    timer = setInterval(function () {
+      timeLeft--;
       document.getElementById("timeLeft").innerHTML = timeLeft;
-      clearInterval(timer);
-      //calls function to end game 
-      gameOver();
-    }
-  }, 1000);
-}
-//after start button click, function start starts timer and sets up next question
-function start() {
-  setTime();
-  next();
-}
-
-//loops through the questions 
-function next() {
-  currentQuestion++;
-
-  if (currentQuestion >= questions.length) {
-    gameOver();
-
-  } else {
-    document.getElementById("quiz-container").innerHTML = checkAnswer();
-  }
-}
-//stop the timer to end the game 
-function gameOver() {
-  clearInterval(timer);
-  var quizBody = "<h2>Game Over</h2>" + "<h2>Score: </h2>" + score + "<p> /100 </p>";
-  document.getElementById("quiz-container").innerHTML = quizBody;
   
-}
-
-
-function wrong() {
-  timeLeft = timeLeft - 15;
-  next();
-}
-
-function correct() {
-  score = score + 20;
-  next();
-}
-
-
-//checks if answers are correct and updates body accordingly
-function checkAnswer() {
-  var quizBody = "<h2>" + questions[currentQuestion].question + "</h2>"
-  //moving through choices to see if it is correct
-  for (var i = 0; i < questions[currentQuestion].choices.length; i++) {
+      if (timeLeft <= 0) {
+        //stops execution of action at set interval
+        //automatically zero when time left becomes negative
+        timeLeft = 0;
+        document.getElementById("timeLeft").innerHTML = timeLeft;
+        clearInterval(timer);
+        //calls function to end game 
+        gameOver();
+      }
+    }, 1000);
   }
 
-
-  return quizBody;
-
+function renderQuestion(){
+    var q = questions[currentQuestion];
+    question.innerHTML = "<p>" + q.question + "</p>";
+    choiceA.innerHTML = q.choiceA;
+    choiceB.innerHTML = q.choiceB;
+    choiceC.innerHTML = q.choiceC;
+    choiceD.innerHTML = q.choiceD;
 }
+
+start.addEventListener("click", startQuiz);
+
+function startQuiz() {
+    timerDisplay.style.display = "block";
+    setTime();
+    start.style.display = "none";
+    renderQuestion();
+    quiz.style.display= "block";
+}
+
+function checkAnswer(answer) {
+    if(answer == questions[currentQuestion].correct) {
+        score += 20;
+    } else {
+        timeLeft -= 15;
+    }
+    if(currentQuestion < lastQuestion) {
+        currentQuestion++;
+        renderQuestion();
+    } else {
+        gameOver();
+        clearInterval(timer);
+    }
+}
+
+function gameOver(){
+    question.style.display = "none";
+    choices.style.display = "none";
+    scoreDiv.style.display = "block";
+    scoreDiv.innerHTML = "<p> YOU GOT: " + score + "%<p>";
+}
+
