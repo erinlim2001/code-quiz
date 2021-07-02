@@ -7,6 +7,7 @@ var choiceC = document.getElementById("C");
 var choiceD = document.getElementById("D");
 var scoreDiv = document.getElementById("score");
 var timerDisplay = document.getElementById("timerDisplay");
+var storeScore = document.getElementById("storeScore");
 
 //create questions
 var questions = [
@@ -115,5 +116,7 @@ function gameOver(){
     choices.style.display = "none";
     scoreDiv.style.display = "block";
     scoreDiv.innerHTML = "<p> YOU GOT: " + score + "%<p>";
+    storeScore.style.display = "block";
+    
 }
 
