@@ -8,7 +8,13 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <div id="container">
+  <div id="container" class="outer">
+    <div id="description">
+      <h3>Coding Quiz Challenge</h3>
+      <p style="font-size:13px">Try to answer the following questions within the time
+      limit (75 seconds). Keep in mind that incorrect answers will penalize your score/time 
+      by 15 seconds!</p>
+    </div>  
     <button id="start">Start Quiz</button>
     <p id="timerDisplay" style="display:none">Time Left: <span id="timeLeft">75</span></h2>
     <div id="quiz" style="display:none">
@@ -19,8 +25,11 @@
         <button class="choice" id="C" onclick="checkAnswer('C')"></button>
         <button class="choice" id="D" onclick="checkAnswer('D')"></button>
     </div>
+    <div id="output" class="result"></div>
     <div id="score" style="display:none"></div>
-	
+    <div id="initial" class="result" contenteditable="true"></div>
+    <button id="enter" style="display:none">Submit</button>
+    <button id="startOver" style="display:none">Start Over</button>
 	</div>
 
   </div>

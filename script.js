@@ -7,6 +7,8 @@ var choiceC = document.getElementById("C");
 var choiceD = document.getElementById("D");
 var scoreDiv = document.getElementById("score");
 var timerDisplay = document.getElementById("timerDisplay");
+var enter = document.getElementById("enter");
+var startOver = document.getElementById("startOver");
 
 //create questions
 var questions = [
@@ -48,7 +50,7 @@ var questions = [
         choiceB: "giraffe",
         choiceC: "zebra",
         choiceD: "koala",
-        correct: "giraffe"
+        correct: "B"
     }
 
 ];
@@ -71,7 +73,7 @@ function setTime() {
         document.getElementById("timeLeft").innerHTML = timeLeft;
         clearInterval(timer);
         //calls function to end game 
-        gameOver();
+        //gameOver();
       }
     }, 1000);
   }
@@ -86,21 +88,53 @@ function renderQuestion(){
 }
 
 start.addEventListener("click", startQuiz);
+enter.addEventListener("click", highScore);
+startOver.addEventListener("click", startQuiz);
 
 function startQuiz() {
+    const description = document.getElementById('description');
+    description.style.display = "none";
+    timeLeft = 75;
+    score = 0;
+    currentQuestion = 0;
+
     timerDisplay.style.display = "block";
     setTime();
     start.style.display = "none";
+    startOver.style.display = "none";
+    choiceA.style.display = "block";
+    choiceB.style.display = "block";
+    choiceC.style.display = "block";
+    choiceD.style.display = "block";
+    scoreDiv.style.display = "none";
+
     renderQuestion();
     quiz.style.display= "block";
 }
 
-function checkAnswer(answer) {
+function sleep(ms) {
+    return new Promise(
+        resolve => setTimeout(resolve, ms)
+    );
+}
+
+async function checkAnswer(answer) {
+    const output = document.getElementById('output');
+
     if(answer == questions[currentQuestion].correct) {
         score += 20;
+        output.style.display = "block";
+        //output.style.backgroundColor = "#B8FF33";
+        output.innerHTML = 'Correct!'
     } else {
         timeLeft -= 15;
+        output.style.display = "block";
+        //output.style.backgroundColor = "#FF3375";
+        output.innerHTML = 'Wrong!'
     }
+    await sleep(1000);
+    output.style.display = "none";
+
     if(currentQuestion < lastQuestion) {
         currentQuestion++;
         renderQuestion();
@@ -110,10 +144,61 @@ function checkAnswer(answer) {
     }
 }
 
-function gameOver(){
+function gameOver0(){
     question.style.display = "none";
     choices.style.display = "none";
     scoreDiv.style.display = "block";
     scoreDiv.innerHTML = "<p> YOU GOT: " + score + "%<p>";
 }
 
+function gameOver(){
+    const A = document.getElementById('A');
+    const B = document.getElementById('B');
+    const C = document.getElementById('C');
+    const D = document.getElementById('D');
+    const I = document.getElementById('initial');
+    const E = document.getElementById('enter');
+
+    A.style.display = "none";
+    B.style.display = "none";
+    C.style.display = "none";
+    D.style.display = "none";
+    question.innerHTML = 'All done!';
+    scoreDiv.style.display = "block";
+    scoreDiv.innerHTML = "<p> YOU GOT: " + score + "%  <br>Enter initial:</br><p>";
+    I.style.display = "block";
+    E.style.display = "block";
+}
+
+function highScore() {
+    const A = document.getElementById('A');
+    const B = document.getElementById('B');
+    const C = document.getElementById('C');
+    const D = document.getElementById('D');
+    const I = document.getElementById('initial');
+    const E = document.getElementById('enter');
+    const SO = document.getElementById('startOver');
+
+    var iText = I.innerText;
+    A.style.display = "none";
+    B.style.display = "none";
+    C.style.display = "none";
+    D.style.display = "none";
+    
+    I.style.display = "none";
+    E.style.display = "none";
+    savedScore = parseInt(localStorage.getItem(iText));
+ 
+    if (isNaN(savedScore) || score > savedScore) {
+        localStorage.setItem(iText, score);
+        question.innerHTML = 'High score';
+        scoreDiv.style.display = "block";
+        scoreDiv.innerHTML = "<p> " + iText + ": " + score + "% <p>";
+    } else {
+        question.innerHTML = 'High score';
+        scoreDiv.style.display = "block";
+        scoreDiv.innerHTML = "<p> " + iText + ": " + savedScore + "% <p>";
+    }
+    SO.style.display = "block";
+    
+}
