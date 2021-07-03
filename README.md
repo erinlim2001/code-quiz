@@ -24,6 +24,7 @@ Desktop Screen:
 ![Code Quiz](./assets/pg4.png)
 ![Code Quiz](./assets/pg5.png)
 ![Code Quiz](./assets/pg6.png)
+![Code Quiz](./assets/pg7.png)
 
 ## Credits
 
